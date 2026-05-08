@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Register</h2>
+    <form method="POST" action="{{ url_for('register') }}">
+        <label>Username</label>
+        <input class="form-control" type="text" name="username" required>
+        <label style="margin-top:8px;">Password</label>
+        <input class="form-control" type="password" name="password" required>
+        <label style="margin-top:8px;">Role</label>
+        <select class="form-control" name="role" required>
+            <option value="Sales">Sales</option>
+            <option value="Admin">Admin</option>
+        </select>
+        <div style="margin-top:10px;">
+            <button class="btn btn-success" type="submit">Create Account</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

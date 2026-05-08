@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Inventory</h2>
+
+<div class="card">
+    <form method="POST" action="{{ url_for('add_product') }}">
+        <div style="display:flex; gap:8px; flex-wrap:wrap;">
+            <input class="form-control" name="name" placeholder="Product name" style="flex:2;" required>
+            <input class="form-control" name="category" placeholder="Category" style="flex:1;">
+            <input class="form-control" name="price" placeholder="Price" style="width:120px;" required>
+            <input class="form-control" name="quantity" placeholder="Quantity" style="width:120px;" required>
+            <button class="btn" type="submit">Add</button>
+        </div>
+    </form>
+
+    <table>
+        <thead>
+            <tr><th>Name</th><th>Category</th><th>Price</th><th>Quantity</th><th>Actions</th></tr>
+        </thead>
+        <tbody>
+            {% for product in products.items %}
+            <tr>
+                <td>{{ product.name }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.quantity }}</td>
+                <td><a class="btn btn-danger" href="{{ url_for('delete_product', id=product.id) }}">Delete</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if products.has_prev %}
+            <a class="page-link" href="{{ url_for('inventory', page=products.prev_num) }}">Previous</a>
+        {% else %}
+            <span class="page-link" style="opacity:0.5;">Previous</span>
+        {% endif %}
+        <span>Page {{ products.page }} of {{ products.pages }}</span>
+        {% if products.has_next %}
+            <a class="page-link" href="{{ url_for('inventory', page=products.next_num) }}">Next</a>
+        {% else %}
+            <span class="page-link" style="opacity:0.5;">Next</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

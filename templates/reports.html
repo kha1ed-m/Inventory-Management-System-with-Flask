@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Reports</h2>
+
+<div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div class="card" style="flex:1; min-width:200px;">
+        <h4>Total Products</h4>
+        <p>{{ total_products }}</p>
+    </div>
+    <div class="card" style="flex:1; min-width:200px;">
+        <h4>Total Orders</h4>
+        <p>{{ total_orders }}</p>
+    </div>
+    <div class="card" style="flex:1; min-width:200px;">
+        <h4>Total Sales</h4>
+        <p>{{ total_sales }}</p>
+    </div>
+</div>
+
+<h4 style="margin-top:12px;">Low Stock (quantity &lt; 5)</h4>
+<div class="card">
+    <table>
+        <thead><tr><th>Name</th><th>Category</th><th>Quantity</th></tr></thead>
+        <tbody>
+            {% for p in low_stock %}
+            <tr>
+                <td>{{ p.name }}</td>
+                <td>{{ p.category }}</td>
+                <td>{{ p.quantity }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="card">
+    <h2>Login</h2>
+    <form method="POST" action="{{ url_for('do_login') }}">
+        <label>Username</label>
+        <input class="form-control" type="text" name="username" required>
+        <label style="margin-top:8px;">Password</label>
+        <input class="form-control" type="password" name="password" required>
+        <div style="margin-top:10px;">
+            <button class="btn" type="submit">Login</button>
+            <a class="btn btn-success" href="{{ url_for('register') }}" style="background:#10b981;">Register</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

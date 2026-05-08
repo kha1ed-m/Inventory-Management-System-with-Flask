@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard ({{ role }})</h2>
+
+<div style="display:flex; gap:12px; flex-wrap:wrap;">
+    <div class="card" style="flex:1; min-width:260px;">
+        <h4>Products (latest)</h4>
+        <ul>
+            {% for p in products %}
+                <li style="padding:8px 0; border-bottom:1px solid #f0f0f0;">
+                    <strong>{{ p.name }}</strong> — {{ p.category }}<br>
+                    <small>Price: {{ p.price }} | Stock: {{ p.quantity }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="card" style="flex:1; min-width:260px;">
+        <h4>Recent Orders</h4>
+        <ul>
+            {% for o in orders %}
+                <li style="padding:8px 0; border-bottom:1px solid #f0f0f0;">
+                    Order #{{ o.id }} — {{ o.order_date.strftime('%Y-%m-%d %H:%M') }}<br>
+                    <small>Total: {{ o.total_amount }}</small>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</div>
+{% endblock %}
+

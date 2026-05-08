@@ -1,0 +1,35 @@
+PRAGMA foreign_keys = ON;
+
+CREATE TABLE IF NOT EXISTS user (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(200) NOT NULL,
+    role VARCHAR(20) NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS product (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(100) NOT NULL,
+    category VARCHAR(50),
+    price REAL DEFAULT 0.0,
+    quantity INTEGER DEFAULT 0
+);
+
+CREATE TABLE IF NOT EXISTS "order" (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER NOT NULL,
+    order_date DATETIME DEFAULT (datetime('now')),
+    total_amount REAL DEFAULT 0.0,
+    status VARCHAR(30) DEFAULT 'Pending',
+    FOREIGN KEY(user_id) REFERENCES user(id) ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS order_item (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    order_id INTEGER NOT NULL,
+    product_id INTEGER NOT NULL,
+    quantity INTEGER DEFAULT 1,
+    unit_price REAL DEFAULT 0.0,
+    FOREIGN KEY(order_id) REFERENCES "order"(id) ON DELETE CASCADE,
+    FOREIGN KEY(product_id) REFERENCES product(id) ON DELETE SET NULL
+);

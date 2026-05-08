@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>My Orders</h2>
+
+<div class="card">
+    <table>
+        <thead><tr><th>Order ID</th><th>Date</th><th>Total</th><th>Actions</th></tr></thead>
+        <tbody>
+            {% for order in orders.items %}
+            <tr>
+                <td>{{ order.id }}</td>
+                <td>{{ order.order_date.strftime('%Y-%m-%d %H:%M') }}</td>
+                <td>{{ order.total_amount }}</td>
+                <td><a class="btn" href="{{ url_for('order_details', id=order.id) }}">View</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="pagination">
+        {% if orders.has_prev %}
+            <a class="page-link" href="{{ url_for('view_orders', page=orders.prev_num) }}">Previous</a>
+        {% else %}
+            <span class="page-link" style="opacity:0.5;">Previous</span>
+        {% endif %}
+        <span>Page {{ orders.page }} of {{ orders.pages }}</span>
+        {% if orders.has_next %}
+            <a class="page-link" href="{{ url_for('view_orders', page=orders.next_num) }}">Next</a>
+        {% else %}
+            <span class="page-link" style="opacity:0.5;">Next</span>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

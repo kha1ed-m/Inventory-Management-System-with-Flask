@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Create Order</h2>
+
+<div class="card">
+    <form method="POST" action="{{ url_for('place_order') }}">
+        <label>Select Product</label>
+        <select class="form-control" name="product_id" required>
+            {% for p in products %}
+                <option value="{{ p.id }}">{{ p.name }} — Stock: {{ p.quantity }} — Price: {{ p.price }}</option>
+            {% endfor %}
+        </select>
+        <label style="margin-top:8px;">Quantity</label>
+        <input class="form-control" type="number" name="quantity" min="1" value="1" required>
+        <div style="margin-top:10px;">
+            <button class="btn btn-success" type="submit">Place Order</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
